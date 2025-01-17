@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>총기보관함</title>
+    <link href="./style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="./common.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <link href="https://cdn.datatables.net/v/dt/dt-2.2.1/datatables.min.css" rel="stylesheet">
+    <link href="./gunbox2.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/d3@7" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js" defer></script>
+    <script src="https://cdn.datatables.net/v/dt/dt-2.2.1/datatables.min.js" defer ></script>
+    <script src="./gunbox.js" defer ></script>
+    
+</head>
+
+<body>
+    <div class="header">
+        <div class="left">
+            <!-- <img src="logo.png" alt="로고" style="width: 10vw; margin-right: 3px;"> -->
+             <p class="logo-replace">KIM IN HO(2nho's)</p>
+        </div>
+
+        <div id="clock">
+            <p class="date"></p>
+            <p class="time" style="line-height: 40px;"></p>
+        </div>
+
+        <div class="header-right right">
+            <div class="header-item">
+                <span style="background: #3498db"></span>
+                <p>사용자관리</p>
+            </div>
+            <div class="header-item">
+                <span style="background: #9b59b6"></span>
+                <p>총기관리</p>
+            </div>
+            <div class="header-item">
+                <span style="background: #2ecc71"></span>
+                <p>총기함잠금</p>
+            </div>
+            <div class="header-item">
+                <span style="background: #3498db"></span>
+                <p>총기함개방</p>
+            </div>
+            <div>관리자 로그아웃</div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="metrics-section">
+
+            <div id="dt_wrapper" class="table-responsive" style="color: #0f131a;">
+                <table class="table table-custom" id="myTable">
+                    <!--begin::Table head-->
+                    <thead>
+                        <!--begin::Table row-->
+                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                            <th>번호</th>
+                            <th>이름</th>
+                            <th>총기번호</th>
+                            <th>총기함번호</th>
+                            <th>사유</th>
+                            <th>로그일시</th>
+                        </tr>
+                        <!--end::Table row-->
+                    </thead>
+                    <!--end::Table head-->
+                    <!--begin::Table body-->
+                    <tbody class="text-gray-600 fw-bold">
+                        <tr class="text-start">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                    <!--end::Table body-->
+                </table>
+            </div>
+
+            <div class="chart-section">
+                <div class="chart-wrapper">
+                    <div class="chart-title">M16(P)</div>
+                    <div class="chart-container" id="circle1">
+                        <!-- <canvas id="chart1"></canvas>
+                        <div class="percentage-display">67.5%</div> -->
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <div class="chart-title">K2(P)</div>
+                    <div class="chart-container" id="circle2">
+                        <!-- <canvas id="chart2"></canvas>
+                        <div class="percentage-display">67.5%</div> -->
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <div class="chart-title">권총(P)</div>
+                    <div class="chart-container" id="circle3">
+                        <!-- <canvas id="chart3"></canvas>
+                        <div class="percentage-display">67.5%</div> -->
+                    </div>
+                </div>
+                <!-- <div>
+                    <div class="chart-title">기타 (P)</div>
+                    <div class="chart-container" id="piechart"></div>
+                </div> -->
+                <!-- 차트 2, 3 반복 -->
+                <div class="chart-wrapper">
+                    <div class="chart-title">보관비율(P)</div>
+                    <div class="chart-container" id="gaugeChart" style="width: 200px; height: 200px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="middle-wrapper">
+            <div class="lineaer-chart-wrapper">
+                <canvas id="myChart" width="200" height="170" style="padding: 20px;"></canvas>
+            </div>
+            <div class="production-grid">
+                <div class="machine-card">
+                    <div class="machine-header">
+                        <h3>대대총기함</h3>
+                        <div class="div-small">보관률 94%</div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 94%;"></div>
+                    </div>
+                    <div class="machine-info">
+                        <p>총 수량: 100</p>
+                        <p class="p-small">(K2: 44정, M16: 54정, 권총: 2정)</p>
+                        <p>근무: 2(M16: 2정)</p>
+                        <p>훈련: 2(K2: 2정)</p>
+                        <p>기타: 0</p>
+                        <!-- <p>현재수량: 94(K2: 42정, M16: 52정, 권총: 2정)</p> -->
+                        <p>현재수량: 94</p>
+                    </div>
+                    <button class="status-button running">잠김</button>
+                </div>
+            
+                <div class="machine-card">
+                    <div class="machine-header">
+                        <h3>중대총기함</h3>
+                        <div class="div-small">보관률 86.6%</div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 86.6%;"></div>
+                    </div>
+                    <div class="machine-info">
+                        <p>총 수량: 30</p>
+                        <p class="p-small">(K2: 15정, M16: 15정)</p>
+                        <p>근무: 5(K2: 3정, M16: 2정)</p>
+                        <p>훈련: 2(K2: 2정)</p>
+                        <p>기타: 0</p>
+                        <!-- <p>현재수량: 26(K2: 10정, M16: 16정)</p> -->
+                        <p>현재수량: 26</p>
+                    </div>
+                    <button class="status-button running">잠김</button>
+                </div>
+            
+                <div class="machine-card" style="border: 1px solid red;">
+                    <div class="machine-header">
+                        <h3>본부부중대 생활관 1</h3>
+                        <div class="div-small">보관률 90%</div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 90%;"></div>
+                    </div>
+                    <div class="machine-info">
+                        <p>총 수량: 10</p>
+                        <p class="p-small">(K2: 5정, M16: 5정)</p>
+                        <p>근무: 1(K2: 1정)</p>
+                        <p>훈련: 0</p>
+                        <p>기타: 0</p>
+                        <!-- <p>현재수량: 9(K2: 4정, M16: 5정)</p> -->
+                        <p>현재수량: 9</p>
+                    </div>
+                    <button class="status-button running" style="color: white; background-color: red;">열림</button>
+                </div>
+            
+                <div class="machine-card">
+                    <div class="machine-header">
+                        <h3>본부부중대 생활관 2</h3>
+                        <div class="div-small">보관률 80%</div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 80%;"></div>
+                    </div>
+                    <div class="machine-info">
+                        <p>총 수량: 15</p>
+                        <p class="p-small">(K2: 6정, M16: 9정)</p>
+                        <p>근무: 2(M16: 2정)</p>
+                        <p>훈련: 1(K2: 1정)</p>
+                        <p>기타: 0</p>
+                        <!-- <p>현재수량: 12(K2: 5정, M16: 7정)</p> -->
+                        <p>현재수량: 12</p>
+                    </div>
+                    <button class="status-button running">잠김</button>
+                </div>
+            
+                <div class="machine-card">
+                    <div class="machine-header">
+                        <h3>2중대 생활관 1</h3>
+                        <div class="div-small">보관률 85%</div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 85%;"></div>
+                    </div>
+                    <div class="machine-info">
+                        <p>총 수량: 13</p>
+                        <p class="p-small">(K2: 7정, M16: 6정)</p>
+                        <p>근무: 1(M16: 1정)</p>
+                        <p>훈련: 1(K2: 1정)</p>
+                        <p>기타: 0</p>
+                        <!-- <p>현재수량: 11(K2: 6정, M16: 5정)</p> -->
+                        <p>현재수량: 11</p>
+                    </div>
+                    <button class="status-button running">잠김</button>
+                </div>
+            
+                <div class="machine-card">
+                    <div class="machine-header">
+                        <h3>2중대 생활관 2</h3>
+                        <div class="div-small">보관률 70%</div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 70%;"></div>
+                    </div>
+                    <div class="machine-info">
+                        <p>총 수량: 10</p>
+                        <p class="p-small">(K2: 5정, M16: 5정)</p>
+                        <p>근무: 0</p>
+                        <p>훈련: 3(K2: 3정)</p>
+                        <p>기타: 0</p>
+                        <!-- <p>현재수량: 7(K2: 2정, M16: 5정)</p> -->
+                        <p>현재수량: 7</p>
+                    </div>
+                    <button class="status-button running">잠김</button>
+                </div>
+            
+                <div class="machine-card">
+                    <div class="machine-header">
+                        <h3>3중대 생활관 1</h3>
+                        <div class="div-small">보관률 73.3%</div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 73.3%;"></div>
+                    </div>
+                    <div class="machine-info">
+                        <p>총 수량: 15</p>
+                        <p class="p-small">(K2: 8정, M16: 7정)</p>
+                        <p>근무: 2(K2: 1정, M16: 1정)</p>
+                        <p>훈련: 2(K2: 2정)</p>
+                        <p>기타: 0</p>
+                        <!-- <p>현재수량: 11(K2: 5정, M16: 6정)</p> -->
+                        <p>현재수량: 11</p>
+                    </div>
+                    <button class="status-button running">잠김</button>
+                </div>
+            
+                <div class="machine-card">
+                    <div class="machine-header">
+                        <h3>3중대 생활관 2</h3>
+                        <div class="div-small">보관률 73.3%</div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 73.3%;"></div>
+                    </div>
+                    <div class="machine-info">
+                        <p>총 수량: 15</p>
+                        <p class="p-small">(K2: 8정, M16: 7정)</p>
+                        <p>근무: 2(K2: 1정, M16: 1정)</p>
+                        <p>훈련: 2(K2: 2정)</p>
+                        <p>기타: 0</p>
+                        <!-- <p>현재수량: 11(K2: 5정, M16: 6정)</p> -->
+                        <p>현재수량: 11</p>
+                    </div>
+                    <button class="status-button running">잠김</button>
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+</body>
+
+</html>
